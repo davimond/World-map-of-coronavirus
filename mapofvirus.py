@@ -2,23 +2,22 @@
 ### 从国内网站爬取新冠病毒最新数据，用颜色标注在世界地图中。
 ### 世界地图具有地图热点功能
 ###
+
+
 import time
 CheckPoint = time.time()
 print("加载第三方package... ",end = '')
 
-import requests     #reauests 用于爬取的数据,获取网页数据
-import io
-import sys
-import json
-import re
-import openpyxl
 from pyecharts import options as opts
 from pyecharts.charts import Map
 from pyecharts.globals import ThemeType
 from pyecharts.globals import JsCode
 import pprint
-
-from pygal.style import LightColorizedStyle, RotateStyle
+import requests     #reauests 用于爬取的数据,获取网页数据
+import io
+import sys
+import json
+import openpyxl
 
 def print_elaspe_time(lasttime):
     print(str(round(time.time()-lasttime,4)) + '秒')
@@ -45,6 +44,7 @@ if web_site == "丁香园网站":
     # 爬取的网页URL地址
     url = "https://ncov.dxy.cn/ncovh5/view/pneumonia?from=groupmessage&isappinstalled=0"
     response = requests.get(url)
+    # response.encoding = 'utf-8'
     response.encoding = None
     #### 网页内容保存在result字符串中
     result = response.text
@@ -92,6 +92,7 @@ elif web_site == "百度网站":
     url = "https://voice.baidu.com/act/newpneumonia/newpneumonia?from=groupmessage&isappinstalled=0"
     response = requests.get(url)
     response.encoding = None
+    response.encoding = 'utf-8'
     #### 网页内容保存在result字符串中
     result = response.text
     with open("baidu.txt",'w') as f:
@@ -344,6 +345,3 @@ print_elaspe_time(CheckPoint)
 #print("\n未感染病毒的国家数数量：",len(group0))
 #print("感染病毒的国家数数量：",len(group1) + len(group2) + len(group3) + len(group4) + len(group5) -1)
 print("=== 程序运行结束 ===")
-
-
-
