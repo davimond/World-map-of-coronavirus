@@ -236,7 +236,6 @@ if web_site == "丁香园网站":
                 ## 未能匹配国家名称，国名名称不在网站数据列表中....
                 all_coronavirus.append([data1['Ename'],0])
 
-
 print_elaspe_time(CheckPoint)
 CheckPoint = time.time()
 print('绘制病毒世界地图... ',end = '')
