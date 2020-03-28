@@ -146,19 +146,12 @@ else:
 print_elaspe_time(CheckPoint)
 CheckPoint = time.time()
 print('转换Excel国家代码... ',end = '')
-#❖❖❖ Step 2:  读取Excel文件，获取三列数据：2位国家代码、3位国家代码，国家名称。
-#---------------------------------------------------------------------
+
+
+#❖❖❖ Step 2:  读取Excel文件，获取4列数据：2位国家代码、3位国家代码，中英文国家名称。
+#----------------------------------------------------------------------
 
 excel = openpyxl.load_workbook('国家代码23.xlsx')
-
-'''
-codesheet = excel.get_sheet_by_name('Sheet1')
-上面的方法调用已经过时了，报错（警告信息）：
- DeprecationWarning: Call to deprecated function get_sheet_by_name (Use wb[sheetname]).
-  codesheet = excel.get_sheet_by_name('Sheet1')
-'''
-
-
 #获取第一个表单，序号0
 mysheet = excel.worksheets[0]
 #### 最大行数：mysheet.max_row , 最大列数：mysheet.max_column
@@ -191,10 +184,6 @@ ConvertTable_Country += '};\n'
 with open('国家代码23.txt','w') as f:  # 保存国家名代码对照表，供其他项目使用
     f.write('MyContries = '+pprint.pformat(myCountries,width=300))
 
-#print(ConvertTable_2code)
-#print(ConvertTable_Country)
-
-
 print_elaspe_time(CheckPoint)
 CheckPoint = time.time()
 print('生成各国对应数据... ',end = '')
@@ -202,7 +191,7 @@ print('生成各国对应数据... ',end = '')
 #❖❖❖ Step 3: 生成2位国家代码的病毒数据
 #---------------------------------------------------------------------
 #### 根据Step1生成的各国病毒数据的列表：world_data、国家代码的数据字典：myCountries,
-#### 生成2位国家代码、病例确诊数对照数据all_coronavirus{'jp':500,'us':33.....}
+#### 生成2位国家代码、病例确诊数对照数据all_coronavirus[ ['jp',500],['us':33].....]
 
 all_coronavirus = []
 
@@ -252,8 +241,6 @@ print_elaspe_time(CheckPoint)
 CheckPoint = time.time()
 print('绘制病毒世界地图... ',end = '')
 
-
-
 js_code1 =  """
 function (params) {
     var result = '';
@@ -271,23 +258,6 @@ js_code2 =  """
     }
 """
 js_code = js_code1 + ConvertTable_Country + ConvertTable_2code + js_code2
-print(js_code)
-
-js_code55 = """               
-function (params) {
-    var result = '';
-    var Ename = params.name; 
-    var virus = params.value;
-    var names={'Andorra':'安道尔','United Arab Emirates':'阿联酋','Afghanistan':'阿富汗','Antigua & Barbuda':'安提瓜和巴布达','Anguilla':'安圭拉','Albania':'阿尔巴尼亚','Armenia':'亚美尼亚','Angola':'安哥拉','Antarctica':'南极洲','Argentina':'阿根廷','American Samoa':'美属萨摩亚','Austria':'奥地利','Australia':'澳大利亚','Aruba':'阿鲁巴','Aland Island':'奥兰群岛','Azerbaijan':'阿塞拜疆','Bosnia and Herz.':'波黑','Barbados':'巴巴多斯','Bangladesh':'孟加拉','Belgium':'比利时','Burkina Faso':'布基纳法索','Bulgaria':'保加利亚','Bahrain':'巴林','Burundi':'布隆迪','Benin':'贝宁','Saint Barthélemy':'圣巴泰勒米岛'};
-    var flags={'Andorra':'ad.png','United Arab Emirates':'ae.png','Afghanistan':'af.png','Antigua & Barbuda':'ag.png','Anguilla':'ai.png','Albania':'al.png','Armenia':'am.png','Angola':'ao.png','Antarctica':'aq.png','Argentina':'ar.png','American Samoa':'as.png','Austria':'at.png','Australia':'au.png','Aruba':'aw.png','Aland Island':'ax.png','Azerbaijan':'az.png','Bosnia and Herz.':'ba.png','Barbados':'bb.png','Bangladesh':'bd.png','Belgium':'be.png','Burkina Faso':'bf.png','Bulgaria':'bg.png','Bahrain':'bh.png','Burundi':'bi.png','Benin':'bj.png','Saint Barthélemy':'bl.png','Bermuda':'bm.png'};          
-    var flag = flags[Emame];
-    var Country = names[Ename];
-    result += '<img src="./CountryFlag/'+ flag +'" height=30 /> '  + '<br/>';
-    result += Country + ' ♛确诊数: ' + virus + '  <br/>';
-    console.log(params);
-    return result
-    }
-"""
 
 #❖❖❖ Step 4:  通过pyecharts Map的视觉映射功能对数据分组，以不同的颜色显示
 #---------------------------------------------------------------------
@@ -345,3 +315,6 @@ print_elaspe_time(CheckPoint)
 #print("\n未感染病毒的国家数数量：",len(group0))
 #print("感染病毒的国家数数量：",len(group1) + len(group2) + len(group3) + len(group4) + len(group5) -1)
 print("=== 程序运行结束 ===")
+
+
+
