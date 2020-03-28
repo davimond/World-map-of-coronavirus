@@ -2,23 +2,22 @@
 ### 从国内网站爬取新冠病毒最新数据，用颜色标注在世界地图中。
 ### 世界地图具有地图热点功能
 ###
-from pyecharts import options as opts
-from pyecharts.charts import Map
-from pyecharts.globals import ThemeType
-from pyecharts.globals import JsCode
-import pprint
-
 import time
 CheckPoint = time.time()
 print("加载第三方package... ",end = '')
 
-import pygal
 import requests     #reauests 用于爬取的数据,获取网页数据
 import io
 import sys
 import json
 import re
 import openpyxl
+from pyecharts import options as opts
+from pyecharts.charts import Map
+from pyecharts.globals import ThemeType
+from pyecharts.globals import JsCode
+import pprint
+
 from pygal.style import LightColorizedStyle, RotateStyle
 
 def print_elaspe_time(lasttime):
