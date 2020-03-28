@@ -13,7 +13,7 @@ from pyecharts.charts import Map
 from pyecharts.globals import ThemeType
 from pyecharts.globals import JsCode
 import pprint
-import requests     #reauests 用于爬取的数据,获取网页数据
+import requests          #reauests 用于爬取的数据,获取网页数据
 import io
 import sys
 import json
